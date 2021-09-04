@@ -50,6 +50,11 @@
                   ยอดซื้อสูงสุด {{ selectDetail.max }} <br />
                   ยอดที่ยังซื้อได้ {{ selectDetail.limit }} <br />
                 </div>
+                <div v-if="detail">
+                  <div class="card" v-for="data in detail" :key="data">
+                    คุณ {{ data.name }} ราคา {{ data.price }} วันที่ {{ data.date }}
+                  </div>
+                </div>
               </div>
             </div>
             <div class="card-footer">
@@ -160,7 +165,6 @@ export default Vue.extend({
       ],
       buy: [],
     }
-    
 
     const name = ''
     const price = null
@@ -187,7 +191,7 @@ export default Vue.extend({
       selectDetail,
       fields,
       localsaves,
-      setclear
+      setclear,
     }
   },
   created() {
@@ -227,6 +231,9 @@ export default Vue.extend({
     //   const x = localStorage.getItem('buys')
     //   return JSON.parse(x)
     // },
+    detail() {
+      return this.list.buy.filter((element) => element.id === this.choose.id)
+    },
   },
   methods: {
     set() {
@@ -319,7 +326,7 @@ export default Vue.extend({
         // const parsedList = JSON.stringify(this.starts)
         // localStorage.setItem('list', parsedList)
       }
-      this.choose = ''
+      // this.choose = ''
       this.price = null
       this.selectIndex = 0
     },
