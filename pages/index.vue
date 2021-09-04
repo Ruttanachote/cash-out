@@ -7,7 +7,7 @@
       <div>
         <div class="btn btn-info" @click="set">update list (set)</div>
         <div class="btn btn-dark" @click="clear">del buy (clear)</div>
-        <div class="btn btn-dark" @click="Saves">
+        <div class="btn btn-dark" @click="Saves">.
           saves (saves) {{ localsaves === null ? 'no save' : '1 saves' }}
         </div>
         <!-- <b-dropdown id="dropdown-1" text="Dowload" class="m-md-2">
