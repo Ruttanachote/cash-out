@@ -8,7 +8,7 @@
         <div class="btn btn-info" @click="set">update list (set)</div>
         <div class="btn btn-dark" @click="clear">del buy (clear)</div>
         <div class="btn btn-dark" @click="Saves">
-          saves (saves) {{ localsaves ? '1 saves' : 'no save' }}
+          saves (saves) {{ localsaves === null ? 'no save' : '1 saves' }}
         </div>
         <!-- <b-dropdown id="dropdown-1" text="Dowload" class="m-md-2">
           <div v-for="localsave in localsaves" :key="localsave">
@@ -137,6 +137,31 @@ export default Vue.extend({
       buy: [],
     }
 
+    const setclear = {
+      set: [
+        { id: 0, num: '00', limit: 100, max: 100, list: [] },
+        { id: 1, num: '01', limit: 100, max: 100, list: [] },
+        { id: 2, num: '02', limit: 100, max: 100, list: [] },
+        { id: 3, num: '03', limit: 100, max: 100, list: [] },
+        { id: 4, num: '04', limit: 100, max: 100, list: [] },
+        { id: 5, num: '05', limit: 100, max: 100, list: [] },
+        { id: 6, num: '06', limit: 100, max: 100, list: [] },
+        { id: 7, num: '07', limit: 100, max: 100, list: [] },
+        { id: 8, num: '08', limit: 100, max: 100, list: [] },
+        { id: 9, num: '09', limit: 100, max: 100, list: [] },
+        { id: 10, num: '10', limit: 100, max: 100, list: [] },
+        { id: 11, num: '11', limit: 100, max: 100, list: [] },
+        { id: 12, num: '12', limit: 100, max: 100, list: [] },
+        { id: 13, num: '13', limit: 100, max: 100, list: [] },
+        { id: 14, num: '14', limit: 100, max: 100, list: [] },
+        { id: 15, num: '15', limit: 100, max: 100, list: [] },
+        { id: 16, num: '16', limit: 100, max: 100, list: [] },
+        { id: 17, num: '17', limit: 100, max: 100, list: [] },
+      ],
+      buy: [],
+    }
+    
+
     const name = ''
     const price = null
     const choose = ''
@@ -162,6 +187,7 @@ export default Vue.extend({
       selectDetail,
       fields,
       localsaves,
+      setclear
     }
   },
   created() {
@@ -221,12 +247,14 @@ export default Vue.extend({
       // this.$router.go('/')
     },
     clear() {
-      const set = JSON.stringify([])
+      // const set = JSON.stringify([])
       // localStorage.setItem('list', set)
       // localStorage.setItem('buys', set)
-      localStorage.setItem('saves', set)
-      const x = localStorage.getItem('saves')
-      this.list = JSON.parse(x)
+      // localStorage.setItem('saves', set)
+      // const x = localStorage.getItem('saves')
+      // this.list = JSON.parse(x)
+      this.list = this.setclear
+      this.setseve()
       this.$router.go('/')
     },
 
