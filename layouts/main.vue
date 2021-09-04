@@ -1,45 +1,36 @@
 <template>
-  <div class="">
-    <input
-      class="dark-light"
-      type="checkbox"
-      id="dark-light"
-      name="dark-light"
-    />
-    <label for="dark-light"></label>
+  <div class="container">
+    
+	<input class="dark-light" type="checkbox" id="dark-light" name="dark-light"/>
+  	<label for="dark-light"></label>
 
-    <div class="light-back"></div>
+  	<div class="light-back"></div> 
 
-    <div class="container">
-      <div class="section-fluid-main">
-        <div class="section-row">
-          <div class="section-col-2">
-            <div class="section">
-              <p class="color-blue">Your current balance</p>
-              <h3><span class="font-weight-500">$</span> 0,000.00</h3>
-            </div>
-          </div>
-          <div class="col">
-            <input class="date-btn" type="radio" id="date-3" name="date-btn" />
-            <label for="date-3"><span>Reset (0)</span></label>
-            <input class="date-btn" type="radio" id="date-4" name="date-btn" />
-            <label for="date-4"><span>Save</span></label>
-            <div class="row">
-              <div class="col mx-3">
-                <div class="card text-dark p-2 ">
-                  <input type="text">
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- <input class="date-btn" type="radio" id="date-1" name="date-btn" checked/>
-  			<label for="date-1"><span>Dowload Clound</span></label> 
+	<div class="">
+    <div class="section-fluid-main">
+		<div class="section-row">
+			<div class="section-col-2">
+				<div class="section">
+					<p class="color-blue">Your current balance</p>
+					<h3><span class="font-weight-500">$</span> 0,000.00</h3>
+				</div>
+			</div>
+			<div class="section-col-2">
+				<div class="section">
+					<p class="color-yellow">Your credit limit</p>
+					<h3><span class="font-weight-500">$</span> 0,000.00</h3>
+				</div>
+			</div>
+  			<input class="date-btn" type="radio" id="date-1" name="date-btn" checked/>
+  			<label for="date-1"><span>Dowload Local</span></label> 
   			<input class="date-btn" type="radio" id="date-2" name="date-btn"/>
-  			<label for="date-2"><span>Dowload File</span></label> 
-
-          <div class="section-col-1">
-            <!-- <div class="section">
+  			<label for="date-2"><span>90 days</span></label> 
+  			<input class="date-btn" type="radio" id="date-3" name="date-btn"/>
+  			<label for="date-3"><span>Reset</span></label> 
+  			<input class="date-btn" type="radio" id="date-4" name="date-btn"/>
+  			<label for="date-4"><span>Save</span></label> 
+			<div class="section-col-1">
+				<!-- <div class="section">
 					<div class="section-progress">
 						<div class="income days-30">
 							<div class="income-tooltip">
@@ -91,88 +82,25 @@
 						</div>
 					</div>
 				</div> -->
-            <div class="conatiner my-5">
-              <div class="row">
-                <div class="col">
-                  <div class="card p-5">
-                    <div class="row">
-                      <div
-                        class="col-xs-1-10 my-2"
-                        v-for="Set in Sets"
-                        :key="Set.num"
-                      >
-                        <b-button
-                          @click="add(Set)"
-                          class="btn"
-                          :class="[Set.limit === 0 ? '' : 'btn-danger']"
-                          :disabled="Set.limit === 0"
-                          >{{ Set.num }}</b-button
-                        >
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="card">
-                    <div v-for="list in List" :key="list.num">
-                      <div class="card bg-secondary text-white">{{ list }} test</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <router-view></router-view>
+			</div>
+      
+		</div>
 
-        <a href="https://front.codes/" class="logo" target="_blank">
-          <!-- <img src="https://assets.codepen.io/1462889/fcy.png" alt=""> -->
-          <h2 class="text-white">Cash-Out</h2>
-        </a>
-      </div>
-    </div>
+		<a href="https://front.codes/" class="logo" target="_blank">
+			<!-- <img src="https://assets.codepen.io/1462889/fcy.png" alt=""> -->
+       <h2 class="text-white">Cash-Out</h2>
+		</a>	
+	</div>
+  </div>
   </div>
 </template>
-<script>
-export default {
-  data() {
-    const Sets = [
-      { id: 0, num: '00', limit: 100 },
-      { id: 1, num: '01', limit: 100 },
-      { id: 2, num: '00', limit: 100 },
-      { id: 3, num: '01', limit: 100 },
-      { id: 4, num: '00', limit: 100 },
-      { id: 5, num: '01', limit: 100 },
-      { id: 6, num: '00', limit: 100 },
-      { id: 7, num: '01', limit: 100 },
-      { id: 8, num: '00', limit: 100 },
-      { id: 9, num: '01', limit: 100 },
-      { id: 10, num: '00', limit: 100 },
-      { id: 11, num: '01', limit: 100 },
-      { id: 12, num: '00', limit: 100 },
-      { id: 13, num: '01', limit: 100 },
-      { id: 14, num: '00', limit: 100 },
-      { id: 15, num: '01', limit: 100 },
-      { id: 16, num: '00', limit: 100 },
-      { id: 17, num: '01', limit: 100 },
-    ]
-    const List = []
-    const wait = null
 
-    return {
-      Sets,
-      List,
-      wait
-    }
-  },
-  methods: {
-    add(set) {
-      this.List.push(set)
-    },
-  },
-}
-</script>
 <style lang="css">
+
+
 /* Please ❤ this if you like it! */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
 *,
@@ -180,13 +108,13 @@ export default {
 *::after {
   box-sizing: border-box;
 }
-body {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 1.7;
-  color: #fff;
-  background-image: url('https://assets.codepen.io/1462889/web-app-back.svg');
+body{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 1.7;
+	color: #fff;
+	background-image: url('https://assets.codepen.io/1462889/web-app-back.svg');
   background-size: cover;
   background-position: center;
   margin: 0;
@@ -198,22 +126,22 @@ body {
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
-[type='checkbox']:checked,
-[type='checkbox']:not(:checked) {
+[type="checkbox"]:checked,
+[type="checkbox"]:not(:checked){
   position: absolute;
   visibility: hidden;
 }
-p {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 500;
+p{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
   letter-spacing: 0.4px;
-  font-size: 16px;
-  line-height: 1.55;
-  color: #fff;
+	font-size: 16px;
+	line-height: 1.55;
+	color: #fff;
   margin: 0;
   margin-bottom: 15px;
 }
-h3 {
+h3{
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 42px;
@@ -221,7 +149,7 @@ h3 {
   color: #fff;
   margin: 0;
 }
-h6 {
+h6{
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
   font-size: 17px;
@@ -229,31 +157,31 @@ h6 {
   color: #fff;
   margin: 0;
 }
-.font-weight-500 {
+.font-weight-500{
   font-weight: 500;
 }
-.color-yellow {
+.color-yellow{
   color: #ffdf74;
 }
-.color-blue {
+.color-blue{
   color: #7a95ec;
 }
-.section-fluid-main {
+.section-fluid-main{
   position: relative;
   display: block;
-  width: calc(100% - 0px);
+  width: calc(100% - 40px);
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  max-width: 100%;
+  max-width: 700px;
   padding-top: 50px;
   padding-bottom: 90px;
   -ms-flex-item-align: center;
   align-self: center;
   z-index: 3;
 }
-.section-row {
+.section-row{
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
@@ -261,7 +189,7 @@ h6 {
   margin-right: -15px;
   margin-left: -15px;
 }
-.section-col-1 {
+.section-col-1{
   position: relative;
   width: 100%;
   -ms-flex: 0 0 100%;
@@ -269,7 +197,7 @@ h6 {
   max-width: 100%;
   padding: 0px;
 }
-.section-col-2 {
+.section-col-2{
   position: relative;
   width: 100%;
   -ms-flex: 0 0 50%;
@@ -277,16 +205,18 @@ h6 {
   max-width: 50%;
   padding: 15px;
 }
-.section {
+.section{
   position: relative;
   display: block;
   width: 100%;
   padding: 30px;
   background-color: #303037;
+  border-radius: 200px/3px;
 }
-.section-col-1 .section {
+.section-col-1 .section{
+  border-radius: 400px/3px;
 }
-.section:before {
+.section:before{
   position: absolute;
   content: '';
   top: -5px;
@@ -296,18 +226,18 @@ h6 {
   height: calc(100% + 10px);
   display: block;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.25);
-
+  background-color: rgba(0,0,0,.25);
+  border-radius: 200px/3px;
   box-shadow: 0 8px 35px 0 rgba(0, 0, 0, 0.2);
   transition: background-color 200ms 100ms ease;
 }
-[type='radio']:checked,
-[type='radio']:not(:checked) {
+[type="radio"]:checked,
+[type="radio"]:not(:checked){
   position: absolute;
   visibility: hidden;
 }
 .date-btn:checked + label,
-.date-btn:not(:checked) + label {
+.date-btn:not(:checked) + label{
   position: relative;
   width: 100%;
   -ms-flex: 0 0 25%;
@@ -316,11 +246,11 @@ h6 {
   padding: 15px;
 }
 .date-btn:checked + label span,
-.date-btn:not(:checked) + label span {
+.date-btn:not(:checked) + label span{
   position: relative;
   width: 100%;
   background-color: #3760e2;
-
+  border-radius: 100px/3px;
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
   font-size: 14px;
@@ -343,12 +273,12 @@ h6 {
   cursor: pointer;
   transition: background-color 250ms linear, color 250ms ease;
 }
-.date-btn:checked + label span {
+.date-btn:checked + label span{
   background-color: transparent;
   color: #102770;
 }
 .date-btn:checked + label span:before,
-.date-btn:not(:checked) + label span:before {
+.date-btn:not(:checked) + label span:before{
   position: absolute;
   content: '';
   top: -5px;
@@ -358,13 +288,13 @@ h6 {
   height: calc(100% + 10px);
   display: block;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgba(0,0,0,.25);
   border-radius: 100px/3px;
   box-shadow: 0 8px 35px 0 rgba(0, 0, 0, 0.2);
   transition: background-color 200ms 100ms ease;
 }
 .date-btn:checked + label span:after,
-.date-btn:not(:checked) + label span:after {
+.date-btn:not(:checked) + label span:after{
   position: absolute;
   content: '';
   top: 50%;
@@ -376,10 +306,10 @@ h6 {
   display: block;
   overflow: hidden;
   border-radius: 50%;
-  background-image: linear-gradient(196deg, #ffd341, #ffeba7);
+  background-image: linear-gradient(196deg,#ffd341,#ffeba7);
   transition: all 250ms linear;
 }
-.date-btn:checked + label span:after {
+.date-btn:checked + label span:after{
   top: 1px;
   left: 1px;
   width: calc(100% - 2px);
@@ -387,7 +317,7 @@ h6 {
   margin: 0;
   border-radius: 100px/3px;
 }
-.section-progress {
+.section-progress{
   position: relative;
   display: block;
   width: 100%;
@@ -395,21 +325,21 @@ h6 {
   background-color: #222;
   border-radius: 2px;
 }
-.section-progress h6 {
+.section-progress h6{
   color: #222;
 }
-.section-progress .income p {
+.section-progress .income p{
   color: #102770;
 }
-.section-progress .expense p {
+.section-progress .expense p{
   color: #dba800;
 }
-.section-progress p {
+.section-progress p{
   margin-bottom: 5px;
   font-size: 14px;
   opacity: 0.8;
 }
-.income {
+.income{
   position: absolute;
   display: block;
   top: 0;
@@ -421,7 +351,7 @@ h6 {
   border-bottom-left-radius: 2px;
   background: linear-gradient(90deg, #102770 0%, #3760e2 95%, #fff7da 100%);
 }
-.expense {
+.expense{
   position: absolute;
   display: block;
   top: 0;
@@ -434,7 +364,7 @@ h6 {
   background: linear-gradient(90deg, #fff7da, #ffd341);
 }
 .income-tooltip,
-.expense-tooltip {
+.expense-tooltip{
   position: absolute;
   display: block;
   min-width: 120px;
@@ -443,13 +373,13 @@ h6 {
   padding: 10px 15px;
   border-radius: 4px;
   box-shadow: 0 8px 35px 0 rgba(0, 0, 0, 0.2);
-  transform: translateX(-50%) rotate(-25deg);
+  transform: translateX(-50%) rotate(-25deg); 
   transform-origin: center top;
   opacity: 0;
   pointer-events: none;
 }
 .income-tooltip:before,
-.expense-tooltip:before {
+.expense-tooltip:before{
   position: absolute;
   top: 0;
   left: 0;
@@ -462,127 +392,128 @@ h6 {
   transition: background-color 200ms 100ms ease;
 }
 .income-tooltip:after,
-.expense-tooltip:after {
+.expense-tooltip:after{
   position: absolute;
   top: -6px;
   left: 50%;
   transform: translateX(-50%);
   content: '';
   z-index: -1;
-  width: 0;
-  height: 0;
+  width: 0; 
+  height: 0; 
   border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
+  border-right: 10px solid transparent; 
   border-bottom: 10px solid #fff;
   transition: border-bottom 200ms 100ms ease;
 }
-.expense-tooltip {
-  transition: transform 200ms ease, opacity 200ms ease;
+.expense-tooltip{
+  transition: transform 200ms ease, opacity 200ms ease
 }
-.expense {
+.expense{
   transition: width 200ms 200ms ease;
 }
-.income-tooltip {
+.income-tooltip{
   transition: transform 200ms 400ms ease, opacity 200ms 400ms ease;
 }
-.income {
+.income{
   transition: width 250ms 400ms ease;
 }
 
-#date-1:checked ~ .section-col-1 .income.days-30 {
+#date-1:checked ~ .section-col-1 .income.days-30{
   width: 65%;
   transition: width 350ms 700ms ease;
 }
-#date-1:checked ~ .section-col-1 .expense.days-30 {
+#date-1:checked ~ .section-col-1 .expense.days-30{
   width: 35%;
   transition: width 300ms 1050ms ease;
 }
-#date-1:checked ~ .section-col-1 .income.days-30 .income-tooltip {
+#date-1:checked ~ .section-col-1 .income.days-30 .income-tooltip{
   transform: translateX(-50%) rotate(0deg);
   opacity: 1;
   pointer-events: auto;
   transition: transform 400ms 1050ms ease, opacity 400ms 1050ms ease;
 }
-#date-1:checked ~ .section-col-1 .expense.days-30 .expense-tooltip {
+#date-1:checked ~ .section-col-1 .expense.days-30 .expense-tooltip{
   transform: translateX(-50%) rotate(0deg);
   opacity: 1;
   pointer-events: auto;
   transition: transform 400ms 1350ms ease, opacity 400ms 1350ms ease;
 }
-#date-2:checked ~ .section-col-1 .income.days-90 {
+#date-2:checked ~ .section-col-1 .income.days-90{
   width: 55%;
   transition: width 350ms 700ms ease;
 }
-.expense.days-90 {
+.expense.days-90{
   left: 55%;
 }
-#date-2:checked ~ .section-col-1 .expense.days-90 {
+#date-2:checked ~ .section-col-1 .expense.days-90{
   width: 45%;
   transition: width 300ms 1050ms ease;
 }
-#date-2:checked ~ .section-col-1 .income.days-90 .income-tooltip {
+#date-2:checked ~ .section-col-1 .income.days-90 .income-tooltip{
   transform: translateX(-50%) rotate(0deg);
   opacity: 1;
   pointer-events: auto;
   transition: transform 400ms 1050ms ease, opacity 400ms 1050ms ease;
 }
-#date-2:checked ~ .section-col-1 .expense.days-90 .expense-tooltip {
+#date-2:checked ~ .section-col-1 .expense.days-90 .expense-tooltip{
   transform: translateX(-50%) rotate(0deg);
   opacity: 1;
   pointer-events: auto;
   transition: transform 400ms 1350ms ease, opacity 400ms 1350ms ease;
 }
 
-#date-3:checked ~ .section-col-1 .income.days-180 {
+#date-3:checked ~ .section-col-1 .income.days-180{
   width: 75%;
   transition: width 350ms 700ms ease;
 }
-.expense.days-180 {
+.expense.days-180{
   left: 75%;
 }
-#date-3:checked ~ .section-col-1 .expense.days-180 {
+#date-3:checked ~ .section-col-1 .expense.days-180{
   width: 25%;
   transition: width 300ms 1050ms ease;
 }
-#date-3:checked ~ .section-col-1 .income.days-180 .income-tooltip {
+#date-3:checked ~ .section-col-1 .income.days-180 .income-tooltip{
   transform: translateX(-50%) rotate(0deg);
   opacity: 1;
   pointer-events: auto;
   transition: transform 400ms 1050ms ease, opacity 400ms 1050ms ease;
 }
-#date-3:checked ~ .section-col-1 .expense.days-180 .expense-tooltip {
+#date-3:checked ~ .section-col-1 .expense.days-180 .expense-tooltip{
   transform: translateX(-50%) rotate(0deg);
   opacity: 1;
   pointer-events: auto;
   transition: transform 400ms 1350ms ease, opacity 400ms 1350ms ease;
 }
 
-#date-4:checked ~ .section-col-1 .income.days-365 {
+#date-4:checked ~ .section-col-1 .income.days-365{
   width: 72%;
   transition: width 350ms 700ms ease;
 }
-.expense.days-365 {
+.expense.days-365{
   left: 72%;
 }
-#date-4:checked ~ .section-col-1 .expense.days-365 {
+#date-4:checked ~ .section-col-1 .expense.days-365{
   width: 28%;
   transition: width 300ms 1050ms ease;
 }
-#date-4:checked ~ .section-col-1 .income.days-365 .income-tooltip {
+#date-4:checked ~ .section-col-1 .income.days-365 .income-tooltip{
   transform: translateX(-50%) rotate(0deg);
   opacity: 1;
   pointer-events: auto;
   transition: transform 400ms 1050ms ease, opacity 400ms 1050ms ease;
 }
-#date-4:checked ~ .section-col-1 .expense.days-365 .expense-tooltip {
+#date-4:checked ~ .section-col-1 .expense.days-365 .expense-tooltip{
   transform: translateX(-50%) rotate(0deg);
   opacity: 1;
   pointer-events: auto;
   transition: transform 400ms 1350ms ease, opacity 400ms 1350ms ease;
 }
 
+
 .dark-light:checked + label,
-.dark-light:not(:checked) + label {
+.dark-light:not(:checked) + label{
   position: fixed;
   top: 25px;
   right: 25px;
@@ -593,13 +524,13 @@ h6 {
   height: 40px;
   cursor: pointer;
   transition: all 200ms linear;
-  box-shadow: 0 0 25px rgba(255, 235, 167, 0.45);
+  box-shadow: 0 0 25px rgba(255,235,167,.45);
 }
-.dark-light:checked + label {
+.dark-light:checked + label{
   transform: rotate(360deg);
 }
 .dark-light:checked + label:after,
-.dark-light:not(:checked) + label:after {
+.dark-light:not(:checked) + label:after{
   position: absolute;
   content: '';
   top: 1px;
@@ -622,7 +553,7 @@ h6 {
   opacity: 1;
 }
 .dark-light:checked + label:before,
-.dark-light:not(:checked) + label:before {
+.dark-light:not(:checked) + label:before{
   position: absolute;
   content: '';
   top: 0;
@@ -640,7 +571,7 @@ h6 {
   background-position: center;
   transition: all 200ms linear;
 }
-.dark-light:checked + label:before {
+.dark-light:checked + label:before{
   background-color: #000;
 }
 .light-back {
@@ -656,36 +587,34 @@ h6 {
   background-color: #fff;
   border-bottom-left-radius: 200%;
   pointer-events: none;
-  transition: width 650ms ease, height 650ms ease,
-    border-bottom-left-radius 250ms ease;
+  transition: width 650ms ease, height 650ms ease, border-bottom-left-radius 250ms ease;
 }
 .dark-light:checked ~ .light-back {
   width: 100%;
   height: 100%;
   border-bottom-left-radius: 0;
   pointer-events: auto;
-  transition: width 650ms ease, height 650ms ease,
-    border-bottom-left-radius 350ms 300ms ease;
+  transition: width 650ms ease, height 650ms ease, border-bottom-left-radius 350ms 300ms ease;
 }
 .logo {
-  position: fixed;
-  top: 25px;
-  left: 25px;
-  display: block;
-  z-index: 1000;
-  transition: all 250ms linear;
+	position: fixed;
+	top: 25px;
+	left: 25px;
+	display: block;
+	z-index: 1000;
+	transition: all 250ms linear;
 }
 .logo img {
-  height: 26px;
-  width: auto;
-  display: block;
-  transition: filter 250ms linear;
+	height: 26px;
+	width: auto;
+	display: block;
+	transition: filter 250ms linear;
 }
 .dark-light:checked ~ .section-fluid-main .logo img {
   filter: brightness(10%);
   transition: filter 250ms 500ms linear;
 }
-.section {
+.section{
   background-color: #303037;
   transition: background-color 200ms 100ms ease;
 }
@@ -693,41 +622,37 @@ h6 {
   background-color: #fff;
   transition: background-color 200ms 200ms ease;
 }
-.dark-light:checked ~ .section-fluid-main .section:before {
-  background-color: rgba(0, 0, 0, 0.05);
+.dark-light:checked ~ .section-fluid-main .section:before{
+  background-color: rgba(0,0,0,.05);
   transition: background-color 200ms 200ms ease;
 }
 .dark-light:checked ~ .section-fluid-main .date-btn:checked + label span:before,
-.dark-light:checked
-  ~ .section-fluid-main
-  .date-btn:not(:checked)
-  + label
-  span:before {
-  background-color: rgba(0, 0, 0, 0.05);
+.dark-light:checked ~ .section-fluid-main .date-btn:not(:checked) + label span:before{
+  background-color: rgba(0,0,0,.05);
   transition: background-color 200ms 200ms ease;
 }
-h3 {
+h3{
   transition: color 200ms 100ms ease;
 }
-.dark-light:checked ~ .section-fluid-main h3 {
+.dark-light:checked ~ .section-fluid-main h3{
   color: #444;
   transition: color 200ms 200ms ease;
 }
-.color-yellow {
+.color-yellow{
   transition: color 200ms 100ms ease;
 }
-.dark-light:checked ~ .section-fluid-main .color-yellow {
+.dark-light:checked ~ .section-fluid-main .color-yellow{
   color: #ffc70f;
   transition: color 200ms 200ms ease;
 }
-.section-progress {
+.section-progress{
   transition: background-color 200ms 100ms ease;
 }
-.dark-light:checked ~ .section-fluid-main .section-progress {
+.dark-light:checked ~ .section-fluid-main .section-progress{
   background-color: #efefef;
   transition: background-color 200ms 200ms ease;
 }
-.section-progress h6 {
+.section-progress h6{
   color: #222;
   transition: color 200ms 100ms ease;
 }
@@ -736,7 +661,7 @@ h3 {
   transition: color 200ms 200ms ease;
 }
 .dark-light:checked ~ .section-fluid-main .income-tooltip:after,
-.dark-light:checked ~ .section-fluid-main .expense-tooltip:after {
+.dark-light:checked ~ .section-fluid-main .expense-tooltip:after{
   border-bottom: 10px solid #303037;
   transition: border-bottom 200ms 200ms ease;
 }
@@ -745,14 +670,14 @@ h3 {
   background-color: #303037;
   transition: background-color 200ms 200ms ease;
 }
-.section-progress .income p {
+.section-progress .income p{
   transition: color 200ms 100ms ease;
 }
 .dark-light:checked ~ .section-fluid-main .section-progress .income p {
   color: #7a95ec;
   transition: color 200ms 200ms ease;
 }
-.section-progress .expense p {
+.section-progress .expense p{
   transition: color 200ms 100ms ease;
 }
 .dark-light:checked ~ .section-fluid-main .section-progress .expense p {
@@ -760,91 +685,58 @@ h3 {
   transition: color 200ms 200ms ease;
 }
 
+
 @media (max-width: 767px) {
-  h3 {
+  h3{
     font-size: 36px;
   }
-  h6 {
+  h6{
     font-size: 16px;
   }
-  .section-col-1 {
+  .section-col-1{
     padding: 10px;
   }
-  .section-col-2 {
+  .section-col-2{
     padding: 10px;
   }
   .date-btn:checked + label,
-  .date-btn:not(:checked) + label {
+  .date-btn:not(:checked) + label{
     padding: 10px;
   }
-  .section-fluid-main {
+  .section-fluid-main{
     padding-top: 100px;
     padding-bottom: 140px;
   }
 }
 @media (max-width: 575px) {
-  h3 {
+  h3{
     font-size: 30px;
   }
-  .section {
+  .section{
     padding: 15px;
   }
-  .section-col-1 {
+  .section-col-1{
     padding: 5px;
   }
-  .section-col-2 {
+  .section-col-2{
     padding: 5px;
   }
   .date-btn:checked + label,
-  .date-btn:not(:checked) + label {
+  .date-btn:not(:checked) + label{
     padding: 5px;
   }
 }
 @media (max-width: 450px) {
-  .section-col-2 {
+  .section-col-2{
     -ms-flex: 0 0 100%;
     flex: 0 0 100%;
     max-width: 100%;
   }
   .date-btn:checked + label,
-  .date-btn:not(:checked) + label {
+  .date-btn:not(:checked) + label{
     -ms-flex: 0 0 50%;
     flex: 0 0 50%;
     max-width: 50%;
-  }
-}
-
-.card-custom {
-}
-.col-xs-1-10,
-.col-sm-1-10 {
-  position: relative;
-  min-height: 1px;
-}
-
-.col-xs-1-10 {
-  width: 10%;
-  float: left;
-}
-
-@media (min-width: 768px) {
-  .col-sm-1-10 {
-    width: 10%;
-    float: left;
-  }
-}
-
-@media (min-width: 992px) {
-  .col-md-1-10 {
-    width: 10%;
-    float: left;
-  }
-}
-
-@media (min-width: 1200px) {
-  .col-lg-1-10 {
-    width: 10%;
-    float: left;
   }
 }
 </style>
