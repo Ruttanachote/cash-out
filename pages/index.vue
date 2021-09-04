@@ -53,7 +53,7 @@
                 <div v-if="detail">
                   <div class="card mt-1" v-for="data in detail" :key="data">
                     คุณ {{ data.name }} ราคา {{ data.price }} วันที่
-                    {{ data.date }}.
+                    {{ data.date }}
                   </div>
                 </div>
               </div>
