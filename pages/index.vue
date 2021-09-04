@@ -51,7 +51,7 @@
                   ยอดที่ยังซื้อได้ {{ selectDetail.limit }} <br />
                 </div>
                 <div v-if="detail">
-                  <div class="card" v-for="data in detail" :key="data">
+                  <div class="card mt-1" v-for="data in detail" :key="data">
                     คุณ {{ data.name }} ราคา {{ data.price }} วันที่ {{ data.date }}
                   </div>
                 </div>
