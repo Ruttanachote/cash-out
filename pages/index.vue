@@ -52,7 +52,8 @@
                 </div>
                 <div v-if="detail">
                   <div class="card mt-1" v-for="data in detail" :key="data">
-                    คุณ {{ data.name }} ราคา {{ data.price }} วันที่ {{ data.date }}.
+                    คุณ {{ data.name }} ราคา {{ data.price }} วันที่
+                    {{ data.date }}.
                   </div>
                 </div>
               </div>
@@ -172,13 +173,13 @@ export default Vue.extend({
     const selectIndex = 0
     const selectDetail = null
     const fields = [
-      { key: 'index' },
-      { key: 'id' },
-      { key: 'name' },
-      { key: 'buy' },
-      { key: 'price' },
-      { key: 'date' },
-      { key: 'time' },
+      { key: 'index', sortable: true },
+      { key: 'id', sortable: true },
+      { key: 'name', sortable: true },
+      { key: 'buy', sortable: true },
+      { key: 'price', sortable: true },
+      { key: 'date', sortable: true },
+      { key: 'time', sortable: true },
       { key: 'actions' },
     ]
     const localsaves = null
