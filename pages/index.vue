@@ -4,7 +4,7 @@
       <br />
       <br />
       <div class="card container cardhead">
-        <h2 class="primary center">Cash out v1.01</h2>
+        <h2 class="primary center">Cash out v1.010</h2>
       </div>
       <!-- <div>
          <div class="btn btn-info" @click="set">update list (set)</div>
