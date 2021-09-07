@@ -1,21 +1,19 @@
 <template>
   <div>
     <div class="container">
+      
       <br />
       <br />
-      <h2>Cash out v1.00 <span class="badge bg-secondary">New</span></h2>
-      <div>
-        <div class="btn btn-info" @click="set">update list (set)</div>
-        <div class="btn btn-dark" @click="clear">del buy (clear)</div>
-        <div class="btn btn-dark" @click="Saves">
-          saves (saves) {{ localsaves === null ? 'no save' : '1 saves' }}
-        </div>
-        <!-- <b-dropdown id="dropdown-1" text="Dowload" class="m-md-2">
-          <div v-for="localsave in localsaves" :key="localsave">
-            <b-dropdown-item>First Action</b-dropdown-item>
-          </div>
-        </b-dropdown> -->
+      <div class="card container cardhead ">
+        <h2 class="primary center">
+          Cash out v1.00 
+        </h2>
       </div>
+      <!-- <div>
+         <div class="btn btn-info" @click="set">update list (set)</div>
+        <div class="btn btn-dark" @click="clear">del buy (clear)</div>
+        <div class="float-right btn btn-danger" @click="deletedefual">เคลียร์ข้อมูล (ลบ)</div> 
+      </div> -->
       <div class="row my-5">
         <div class="col my-5">
           <div class="card">
@@ -23,14 +21,20 @@
             <div class="card-body">
               <div class="row">
                 <div
-                  class="col-xs-1-10 my-2"
+                  class="col-xs-1-10 my-2 container"
                   v-for="start in list.set"
                   :key="start.num"
                 >
                   <b-button
                     @click="select(start)"
                     class="btn"
-                    :class="[start.limit === 0 ? '' : 'btn-danger']"
+                    :class="[
+                      start.limit === 0
+                        ? 'btn-danger '
+                        : start.limit <= 99 && start.limit > 0
+                        ? 'btn-warning'
+                        : 'btn-success',
+                    ]"
                     >{{ start.num }}</b-button
                   >
                 </div>
@@ -45,16 +49,21 @@
             <div class="card-header">Detall</div>
             <div class="card-body">
               <div v-if="selectDetail">
-                <div class="card">
-                  หมายเลข {{ selectDetail.num }} <br />
-                  ยอดซื้อสูงสุด {{ selectDetail.max }} <br />
-                  ยอดที่ยังซื้อได้ {{ selectDetail.limit }} <br />
-                </div>
                 <div v-if="detail">
-                  <div class="card mt-1" v-for="data in detail" :key="data">
+                  <div
+                    class="card mt-2 container bg- text-white"
+                    v-for="data in detail"
+                    :key="data.id"
+                  >
                     คุณ {{ data.name }} ราคา {{ data.price }} วันที่
                     {{ data.date }}
                   </div>
+                </div>
+                <br />
+                <div class="card bg-light text-dark">
+                  หมายเลข {{ selectDetail.num }} <br />
+                  ยอดซื้อสูงสุด {{ selectDetail.max }} <br />
+                  ยอดที่ยังซื้อได้ {{ selectDetail.limit }} <br />
                 </div>
               </div>
             </div>
@@ -64,52 +73,73 @@
                   <b-input-group class="">
                     <b-form-input
                       placeholder="name"
+                      v-model="name"
+                      type="text"
                       class="mb-2 mr-sm-2"
+                      v-on:keyup.enter="save"
                     ></b-form-input>
+
                     <b-form-input
                       placeholder="price"
                       class="mr-sm-2"
                       v-model="price"
+                      v-on:keyup.enter="save"
                       type="number"
                       min="1"
                       :max="price"
                     ></b-form-input>
-                    <b-button
-                      class="mb-2 mr-sm-2 btn-sm"
-                      variant="primary"
-                      @click="save"
-                      >Save</b-button
-                    >
-                    <b-button
-                      variant="danger"
-                      class="mb-2 btn-sm"
-                      @click="cancle"
-                      >Cancle</b-button
-                    >
                   </b-input-group>
                 </b-form>
+                <div class="float-right">
+                  <b-button
+                    class="mb-2 mr-sm-2 btn-sm"
+                    variant="outline-primary"
+                    @click="save"
+                    >Confirm</b-button
+                  >
+                  <b-button
+                    variant="outline-danger"
+                    class="mb-2 mr-sm-2 btn-sm"
+                    @click="cancle"
+                    >Cancle</b-button
+                  >
+                </div>
+              </div>
+              <br />
+              <div
+                class="btn pill variant btn-primary container"
+                @click="Saves"
+              >
+                saves (saves) {{ localsaves === null ? 'no save' : '1 saves' }}
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="card">
+      <div class="card text-center">
         <div>
           <b-table striped hover :items="list.buy" :fields="fields">
             <template #cell(index)="data">
-              {{ data.index }}
+              {{ data.index + 1 }}
             </template>
             <template #cell(actions)="data">
               <button
                 class="btn btn-danger text-white btn-sm"
                 @click="ActionDel(data)"
               >
-                delete
+                Delete
               </button>
             </template>
           </b-table>
         </div>
       </div>
+      <br />
+      <div class="card">
+        <span class="float-right btn btn-danger container" @click="deletedefual">เคลียร์ข้อมูลทั้งหมด (ลบ)</span>
+      </div>
+      <br />
+      <br />
+      <br />
     </div>
   </div>
 </template>
@@ -141,6 +171,7 @@ export default Vue.extend({
         { id: 17, num: '17', limit: 100, max: 100, list: [] },
         { id: 18, num: '18', limit: 100, max: 100, list: [] },
         { id: 19, num: '19', limit: 100, max: 100, list: [] },
+        { id: 20, num: '20', limit: 100, max: 100, list: [] },
 
         { id: 21, num: '21', limit: 100, max: 100, list: [] },
         { id: 22, num: '22', limit: 100, max: 100, list: [] },
@@ -248,6 +279,9 @@ export default Vue.extend({
         { id: 15, num: '15', limit: 100, max: 100, list: [] },
         { id: 16, num: '16', limit: 100, max: 100, list: [] },
         { id: 17, num: '17', limit: 100, max: 100, list: [] },
+        { id: 18, num: '18', limit: 100, max: 100, list: [] },
+        { id: 19, num: '19', limit: 100, max: 100, list: [] },
+        { id: 20, num: '20', limit: 100, max: 100, list: [] },
 
         { id: 21, num: '21', limit: 100, max: 100, list: [] },
         { id: 22, num: '22', limit: 100, max: 100, list: [] },
@@ -341,13 +375,13 @@ export default Vue.extend({
     const selectIndex = 0
     const selectDetail = null
     const fields = [
-      { key: 'index', sortable: true },
-      { key: 'id', sortable: true },
-      { key: 'name', sortable: true },
-      { key: 'buy', sortable: true },
-      { key: 'price', sortable: true },
-      { key: 'date', sortable: true },
-      { key: 'time', sortable: true },
+      { key: 'index', label: 'บิล' ,sortable: true },
+      // { key: 'id', sortable: true },
+      { key: 'name', label: 'ชื่อผู้ซื้อ', sortable: true },
+      { key: 'buy', label: 'เลข',sortable: true },
+      { key: 'price',label: 'ราคา', sortable: true },
+      { key: 'date',label: 'วันที่ซื้อ', sortable: true },
+      { key: 'time',label: 'เวลา', sortable: true },
       { key: 'actions' },
     ]
     const localsaves = null
@@ -364,6 +398,7 @@ export default Vue.extend({
     }
   },
   created() {
+    this.set()
     // if(localStorage.getItem('list')) {
     //   try {
     //     const x = JSON.parsed(localStorage.getItem('list'))
@@ -411,16 +446,43 @@ export default Vue.extend({
       // localStorage.setItem('list', parsed)
       // localStorage.setItem('buys', setbuys)
       const x = localStorage.getItem('saves')
-      this.list = JSON.parse(x)
-      // this.$router.go('/')
+      const set = JSON.parse(x)
+      console.log(JSON.parse(x))
+      console.log(this.list)
+
+      if (set) {
+        if (set.length === 0) {
+          this.list = this.setclear
+        } else {
+          this.list = set
+        }
+      } else {
+        this.list = this.setclear
+      }
     },
     Saves() {
-      const parsed = JSON.stringify(this.list)
-      localStorage.setItem('saves', parsed)
-      const x = localStorage.getItem('saves')
-      this.list = JSON.parse(x)
-      this.setseve()
+      // const parsed = JSON.stringify(this.list)
+      // localStorage.setItem('saves', parsed)
+      // const x = localStorage.getItem('saves')
+      // this.list = JSON.parse(x)
+      // this.setseve()
+
       // this.$router.go('/')
+      this.$swal
+        .fire({
+          position: 'center',
+          type: 'success',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+          timer: 1500,
+        })
+        .then(() => {
+          const parsed = JSON.stringify(this.list)
+          localStorage.setItem('saves', parsed)
+          const x = localStorage.getItem('saves')
+          this.list = JSON.parse(x)
+          this.setseve()
+        })
     },
     clear() {
       // const set = JSON.stringify([])
@@ -436,21 +498,98 @@ export default Vue.extend({
 
     setseve() {
       const x = localStorage.getItem('saves')
-      this.localsaves = x
+      if (x) {
+        if (x.length === 0) {
+          this.localsaves = null
+        } else {
+          this.localsaves = x
+        }
+      } else {
+        this.localsaves = null
+      }
     },
-    ActionDel(data) {
-      var filtered = this.list.buy.filter((element, index) => {
-        return index !== data.index
-      })
-      var newfiltered = this.list.set.filter((element, index) => {
-        return element.id === data.item.id
-      })
-      console.log(data.item)
 
-      var newvalue = newfiltered[0].limit + parseInt(data.item.price, 10)
-      // console.log(newvalue)
-      this.list.set[newfiltered[0].id].limit = newvalue
-      this.list.buy = filtered
+    deletedefual() {
+      // const set = JSON.stringify([])
+      // localStorage.setItem('saves', set)
+
+      this.$swal
+        .fire({
+          title: 'มั่นใจหรือที่จะลบข้อมูล?',
+          text: "ข้อมูลจะถูกเคลียร์ทั้งหมด",
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!',
+        })
+        .then((result) => {
+          if (result.value) {
+            this.$swal
+            .fire('ลบสำเร็จ!', 'ข้อมูลทั้งหมดถูกลบ.', 'success')
+              .then(() => {
+                localStorage.removeItem('saves')
+                this.list = this.setclear
+                this.setseve()
+                this.$router.go('/')
+              })
+          } else {
+            console.log('test')
+          }
+        })
+
+      // localStorage.removeItem('saves')
+      // this.list = this.setclear
+      // this.setseve()
+      // this.$router.go('/')
+    },
+
+    ActionDel(data) {
+      // var filtered = this.list.buy.filter((element, index) => {
+      //   return index !== data.index
+      // })
+      // var newfiltered = this.list.set.filter((element, index) => {
+      //   return element.id === data.item.id
+      // })
+      // console.log(data.item)
+
+      // var newvalue = newfiltered[0].limit + parseInt(data.item.price, 10)
+      // // console.log(newvalue)
+      // this.list.set[newfiltered[0].id].limit = newvalue
+      // this.list.buy = filtered
+      this.$swal
+        .fire({
+          title: 'แน่ใจนะที่จะลบ',
+          text: `บิลเลขที่ ${data.index+1}`,
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!',
+        })
+        .then((result) => {
+          if (result.value) {
+            this.$swal
+              .fire('ลบสำเร็จ!', 'บิลที่คุณเลือกถูกลบเรียบร้อยเเล้ว', 'success')
+              .then(() => {
+                var filtered = this.list.buy.filter((element, index) => {
+                  return index !== data.index
+                })
+                var newfiltered = this.list.set.filter((element, index) => {
+                  return element.id === data.item.id
+                })
+                console.log(data.item)
+
+                var newvalue =
+                  newfiltered[0].limit + parseInt(data.item.price, 10)
+                // console.log(newvalue)
+                this.list.set[newfiltered[0].id].limit = newvalue
+                this.list.buy = filtered
+              })
+          } else {
+            console.log('test')
+          }
+        })
     },
     del(chooseindex) {
       // const x = this.starts.findIndex(element=>element.id===this.selectIndex)
@@ -477,7 +616,7 @@ export default Vue.extend({
       //   (element) => element.id === this.selectIndex
       // )
       const newvalue = this.list.set[this.choose.id].limit - this.price
-      if (newvalue >= 0) {
+      if (newvalue >= 0 && this.price > 0) {
         var d = new Date()
         this.list.set[this.choose.id].limit = newvalue
         this.list.buy.push({
@@ -523,6 +662,22 @@ export default Vue.extend({
 .col-xs-1-10 {
   width: 10%;
   float: left;
+}
+
+.text-light {
+  color: aliceblue;
+}
+
+.cardhead{
+  background: burlywood;
+  
+}
+h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 46px;  
+  text-shadow: 2px 2px 5px red;
+  background: burlywood;
+  text-align: center;
 }
 
 @media (min-width: 768px) {

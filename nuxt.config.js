@@ -44,6 +44,8 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    //https://github.com/ImreC/nuxt-sweetalert2
+    'nuxt-sweetalert2'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
