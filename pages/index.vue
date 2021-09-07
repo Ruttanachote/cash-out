@@ -1,13 +1,10 @@
 <template>
   <div>
     <div class="container">
-      
       <br />
       <br />
-      <div class="card container cardhead ">
-        <h2 class="primary center">
-          Cash out v1.00 
-        </h2>
+      <div class="card container cardhead">
+        <h2 class="primary center">Cash out v1.00</h2>
       </div>
       <!-- <div>
          <div class="btn btn-info" @click="set">update list (set)</div>
@@ -51,7 +48,7 @@
               <div v-if="selectDetail">
                 <div v-if="detail">
                   <div
-                    class="card mt-2 container bg- text-white"
+                    class="card mt-2 container bg- text-white detail1"
                     v-for="data in detail"
                     :key="data.id"
                   >
@@ -60,19 +57,19 @@
                   </div>
                 </div>
                 <br />
-                <div class="card bg-light text-dark">
+                <div class="card bg-light text-dark container">
                   หมายเลข {{ selectDetail.num }} <br />
                   ยอดซื้อสูงสุด {{ selectDetail.max }} <br />
                   ยอดที่ยังซื้อได้ {{ selectDetail.limit }} <br />
                 </div>
               </div>
             </div>
-            <div class="card-footer">
+            <div class="card-footer ">
               <div v-if="choose" class="">
                 <b-form inline>
                   <b-input-group class="">
                     <b-form-input
-                      placeholder="name"
+                      placeholder="ชื่อลูกค้า"
                       v-model="name"
                       type="text"
                       class="mb-2 mr-sm-2"
@@ -80,7 +77,7 @@
                     ></b-form-input>
 
                     <b-form-input
-                      placeholder="price"
+                      placeholder="ราคา"
                       class="mr-sm-2"
                       v-model="price"
                       v-on:keyup.enter="save"
@@ -135,7 +132,9 @@
       </div>
       <br />
       <div class="card">
-        <span class="float-right btn btn-danger container" @click="deletedefual">เคลียร์ข้อมูลทั้งหมด (ลบ)</span>
+        <span class="float-right btn btn-danger container" @click="deletedefual"
+          >เคลียร์ข้อมูลทั้งหมด (ลบ)</span
+        >
       </div>
       <br />
       <br />
@@ -375,13 +374,13 @@ export default Vue.extend({
     const selectIndex = 0
     const selectDetail = null
     const fields = [
-      { key: 'index', label: 'บิล' ,sortable: true },
+      { key: 'index', label: 'บิล', sortable: true },
       // { key: 'id', sortable: true },
-      { key: 'name', label: 'ชื่อผู้ซื้อ', sortable: true },
-      { key: 'buy', label: 'เลข',sortable: true },
-      { key: 'price',label: 'ราคา', sortable: true },
-      { key: 'date',label: 'วันที่ซื้อ', sortable: true },
-      { key: 'time',label: 'เวลา', sortable: true },
+      { key: 'name', label: 'ชื่อลูกค้า', sortable: true },
+      { key: 'buy', label: 'เลข', sortable: true },
+      { key: 'price', label: 'ราคา', sortable: true },
+      { key: 'date', label: 'วันที่ซื้อ', sortable: true },
+      { key: 'time', label: 'เวลา', sortable: true },
       { key: 'actions' },
     ]
     const localsaves = null
@@ -516,7 +515,7 @@ export default Vue.extend({
       this.$swal
         .fire({
           title: 'มั่นใจหรือที่จะลบข้อมูล?',
-          text: "ข้อมูลจะถูกเคลียร์ทั้งหมด",
+          text: 'ข้อมูลจะถูกเคลียร์ทั้งหมด',
           type: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -526,7 +525,7 @@ export default Vue.extend({
         .then((result) => {
           if (result.value) {
             this.$swal
-            .fire('ลบสำเร็จ!', 'ข้อมูลทั้งหมดถูกลบ.', 'success')
+              .fire('ลบสำเร็จ!', 'ข้อมูลทั้งหมดถูกลบ.', 'success')
               .then(() => {
                 localStorage.removeItem('saves')
                 this.list = this.setclear
@@ -560,7 +559,7 @@ export default Vue.extend({
       this.$swal
         .fire({
           title: 'แน่ใจนะที่จะลบ',
-          text: `บิลเลขที่ ${data.index+1}`,
+          text: `บิลเลขที่ ${data.index + 1}`,
           type: 'warning',
           showCancelButton: true,
           confirmButtonColor: '#3085d6',
@@ -615,6 +614,7 @@ export default Vue.extend({
       // const x = this.list.set.findIndex(
       //   (element) => element.id === this.selectIndex
       // )
+
       const newvalue = this.list.set[this.choose.id].limit - this.price
       if (newvalue >= 0 && this.price > 0) {
         var d = new Date()
@@ -633,7 +633,15 @@ export default Vue.extend({
         // this.starts[x].limit = newvalue
         // const parsedList = JSON.stringify(this.starts)
         // localStorage.setItem('list', parsedList)
+      } else {
+        this.$swal.fire({
+          type: 'error',
+          title: 'เกิดการผิดพลาด',
+          text: 'กรุณากรอกจำนวนราคาที่ถูกต้อง',
+          
+        })
       }
+
       // this.choose = ''
       this.price = null
       this.selectIndex = 0
@@ -668,16 +676,20 @@ export default Vue.extend({
   color: aliceblue;
 }
 
-.cardhead{
+.cardhead {
   background: burlywood;
-  
 }
 h2 {
   font-family: 'Oswald', sans-serif;
-  font-size: 46px;  
+  font-size: 46px;
   text-shadow: 2px 2px 5px red;
   background: burlywood;
   text-align: center;
+}
+
+.detail1 {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  background: salmon;
 }
 
 @media (min-width: 768px) {
